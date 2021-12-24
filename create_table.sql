@@ -21,18 +21,22 @@ create table ark_holding_tbl (
 	references ark_update_tbl (update_id)
 );
 
+--ALTER USER tsangsir ENABLE EDITIONS;
+
 create table ark_trade_tbl (
-	trade_id number generated always as identity,
-	fund varchar2(10),
-	ticker varchar2(10),
-	trade_date date,
-	direction varchar2(1),
-	shares number,
-	fund_weight number,
-	constraint ark_trade_pk primary key (trade_id, fund, ticker)
+        ticker varchar2(20),
+        trade_date date,
+        shares number,
+        weight number,
+        fund varchar2(100),
+        direction varchar2(10),
+        hidden varchar2(10)--,
+        --everything varchar2(1000),
+        --images varchar2(100)
 );
 
-create index ark_trade_idx1 on ark_trade_tbl (trade_date, ticker);
+create editioning view ark_trade as
+select * from ark_trade_tbl;
 
 create table ark_ticker_info_tbl (
 	ticker varchar2(10),
